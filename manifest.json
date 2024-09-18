@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "JNLP Filename Modifier",
+  "version": "1.0",
+  "description": "Automatically modify the filename of .jnlp downloads",
+  "permissions": [
+    "downloads"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "icons": {
+    "48": "icon.png"
+  }
+}
