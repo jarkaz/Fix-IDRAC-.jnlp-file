@@ -29,8 +29,48 @@ This extension listens for download events in Chrome. Whenever a file is downloa
 
 ## Why is this useful for older Dell iDRAC versions?
 
+
+
 Many older versions of Dell iDRAC (e.g., iDRAC 6) use `.jnlp` files to launch Java-based remote consoles. However, there are sometimes issues with how these `.jnlp` files are named or handled by modern browsers like Chrome, leading to difficulty in launching the Java applet.
 
 This extension resolves these filename issues, allowing you to open the Java links from older iDRAC versions seamlessly in Chrome.
 
 > **Note:** When launching Older Dell iDRAC versions Virtual Console If you encounter a problem with certificates and security, you may need to modify Java settings, disable certificate checks, etc.
+
+🛠️ How to Fix iDRAC6 Virtual Console "Connection Failed" Error (Java Security)
+✅ Problem:
+Modern Java blocks old TLS protocols and insecure cryptographic curves required by iDRAC6.
+
+✅ Solution:
+Comment out both security restriction lines in java.security.
+
+📋 Steps:
+Locate the java.security file:
+
+Example path:
+
+vbnet
+Copy
+Edit
+C:\Program Files\Java\jre1.8.0_xx\lib\security\java.security
+Open it with admin rights.
+
+Find and comment out these two lines:
+
+   ```bash
+   jdk.jar.disabledAlgorithms=MD2, RSA keySize < 1024, \
+   ```
+   ```bash
+   jdk.tls.disabledAlgorithms=SSLv3, TLSv1, TLSv1.1, RC4, DES, MD5withRSA, \
+   ```
+
+☑️ Just add # at the beginning of both lines to disable them.
+
+Save the file.
+
+Run the iDRAC6 Virtual Console again — it should connect.
+
+⚠️ Safety Tip:
+Use a dedicated Java install (just for iDRAC), so your main system stays secure.
+
+Let me know if you'd like a custom portable Java setup with these tweaks pre-applied.
